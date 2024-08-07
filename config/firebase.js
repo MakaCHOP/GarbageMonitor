@@ -1,6 +1,5 @@
-// Import the functions you need from the SDKs you need
-import firebase from "firebase/compat/app";
-import "firebase/compat/auth";
+import { getAuth } from 'firebase/auth';
+import { initializeApp, getApps } from 'firebase/app';
 
 import { getAnalytics } from "firebase/analytics";
 
@@ -14,12 +13,7 @@ const firebaseConfig = {
     measurementId: "G-LSRMQ5817Y"
 };
 
-firebase.initializeApp(firebaseConfig);
-export const auth = firebase.auth();
-const provider = new firebase.auth.GoogleAuthProvider();
-provider.setCustomParameters({ prompt: "select_account" });
+const firebaseApp =
+    getApps().length === 0 ? initializeApp(firebaseConfig) : getApps()[0];
 
-
-export const analytics = getAnalytics(app);
-
-
+export const firebaseAuth = getAuth(firebaseApp);
